@@ -1,0 +1,63 @@
+Quick Select AC 
+by Prob : Expectation
+pivot prob: |S| <= n/3, |L| <= n/3
+T(n) = cn + 1/3T(2/3n) + 2/3T(n)
+
+p50 
+power 함수
+재귀 -> 비재귀 코드 이해
+
+p64
+T(n) =  4T(n/2) + cn   -> n = 2 ^ k, T(1) = c
+= c(4^k) + cn(2^k - 1)
+= cn^2 + cn(n - 1)
+= O(n^2)
+
+T(n) = 2T(n/2) + cn -> O(n ^ log2) -> O(nlogn)  (O(n)이 아님 주의) 
+T(n) = 3T(n/2) + cn -> O(n ^ log3)
+T(n) = 4T(n/2) + cn -> O(n ^ log4) -> O(n ^ 2)
+Master Theorem
+T(n) = bT(n/a) + cn^d
+
+p60
+최대구간합 알고리즘 4가지
+
+##
+비 비교기반 정렬 알고리즘; Radix sort: O(dn)
+A = [126, 6, 217, 19, 326, 21]
+
+queue(FIFO); 1의 자리, 10의 자리, 100의 자리 수 기반 0~9 숫자 매칭
+-> 0 1[21] 2 3 4 5 6[126, 6, 326] 7[217] 8 9[19] 1의자리
+-> 0[6] 1[217, 19], 2[21, 126, 326] 3 4 5 6 7 8 9  10의 자리
+-> 0[6, 19, 21] 1[126], 2[217], 3[326], 4 5 6 7 8 9 100의 자리
+->A = [21, 126, 6, 326, 217, 19]
+->A = [6, 217, 19, 21, 126, 326]
+->A = [6, 19, 21, 126, 217, 326]
+##
+
+정렬 
+
+Upper Bound: O(nlogn)
+Lower Bound: O(nlogn)
+
+결정트리에서 최소높이-> 비교횟수의 하한, 리프노드 -> n!
+h >= logn! >= n/2logn/2
+
+
+정렬 알고리즘의 성질
+크기가 같은 숫자 -> 원래 입력 순서 정렬 후에도 유지 -> Stable
+Selection : Stable / In-place / 자리바꿈O(n) / 비교O(n^2)
+Insertion : Stable /  In-place / 자리바꿈O(n^2) / 비교O(n^2)
+-> 이진탐색 활용 시 비교O(nlogn) 가능 자리바꿈은 변동 x
+
+Quick Sort
+-> T(n) = cn + T(|S|) + T(|L|)
+B.C : T(n) = 2T(n/2) + cn = O(nlogn)
+W.C : T(n) = T(n-1) + cn = O(n^2)
+A.C : T(n) = O(nlogn)
+
+Merge Sort
+T(n) = 2T(n/2) + cn = O(nlogn)
+
+Merge : Stable / not-in-place
+Heap : Unstable / in-place

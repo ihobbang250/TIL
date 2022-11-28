@@ -53,6 +53,7 @@ public class AdvancedExample {
         System.out.println(Util.getCurrentDate("yyyyMMdd"));
         
         Counter c1 = new Counter();
+        c1.getCount();
         System.out.println(Counter.getCount()); // Use class to call Static method 
 
         Singleton singleton1 = Singleton.getInstance();

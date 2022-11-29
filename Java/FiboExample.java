@@ -3,7 +3,9 @@ import java.util.Scanner;
 public class FiboExample {
 
     static int fib(int n) {
-        int PrefixSum = 1;
+        int left = 0;
+        int right = 1;
+        int result = 0;
         if (n <= 1) {
             return n;
         }
@@ -12,9 +14,11 @@ public class FiboExample {
         }
         else {
             for (int i = 1; i < n; i++) {
-                PrefixSum += i;
+                result = left + right;
+                left = right;
+                right = result;
             }
-            return PrefixSum;
+            return result;
         }
     }
     public static void main(String[] args) {
@@ -22,7 +26,8 @@ public class FiboExample {
         int n = sc.nextInt();
         
         for (int i = 0; i < n; i++) {
-            System.out.println(fib(i));
+            System.out.print(fib(i)+ " ");
         }
+        sc.close();
     }
 }

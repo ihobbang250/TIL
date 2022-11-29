@@ -49,7 +49,7 @@ class ExceptionExample {
     }
 }
 public class AdvancedExample {
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args) {
         System.out.println(Util.getCurrentDate("yyyyMMdd"));
         
         Counter c1 = new Counter();

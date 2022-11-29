@@ -38,5 +38,6 @@ public class Problem1 {
         System.out.println(result1);
         System.out.println(result2);
         System.out.println(result3);
+        sc.close();
     }
 }

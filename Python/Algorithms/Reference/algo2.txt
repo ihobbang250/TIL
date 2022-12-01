@@ -144,5 +144,32 @@ def Backtrack2(k): #A의 값이 정렬되어 있음
 				Backtrack2(k+1)
 			X[k] = 0
 			Backtrack2(k+1)
+#############
 
-Fractional algo >= 0/1 algo
+*Knapsack
+Profit(0/1 Knapsack) <= Profit(Fractional Knapsack)
+0/1 Knapsack Algo
+한계함수 중요
+1. SIZE 조건
+2. Fractional을 통한 예상이익
+F(예상이익) > Max Profit 인 경우 탐색 계속 진행
+
+###Example###
+k = 5
+p = [15, 16, 6]
+s = [3, 4, 2]
+p/s = [5, 4, 3]
+
+->profit(fractional) = 23
+->profit(0/1) = 21
+############
+
+n개 item, 배낭size : k
+이익(n개 item, k) 
+-> n번째 item 선택O -> P[n] + 이익((n-1)개 item, K-S[n])
+-> n번째 item 선택X -> 이익((n-1)개 item, k)
+
+DP[n][k] = max(DP[n-1][k-s[n]] + P[n], DP[n-1][k])
+
+DP[n][p] = n개 item으로 이익이 p이하가 될 때 선택된 item의 최소 크기 합
+	   = min(DP[n-1][p-p[n]], DP[n-1][p])

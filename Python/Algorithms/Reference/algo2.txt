@@ -173,3 +173,14 @@ DP[n][k] = max(DP[n-1][k-s[n]] + P[n], DP[n-1][k])
 
 DP[n][p] = n개 item으로 이익이 p이하가 될 때 선택된 item의 최소 크기 합
 	   = min(DP[n-1][p-p[n]], DP[n-1][p])
+
+* Algorithms straegy
+D&C, DP, greedy (다항시간)
+Backtracking (Hard)
+
+*n개 노드 구성된 연결트리의 에지는 항상 n-1개
+
+*그래프 표현법 2가지
+1. 인접 행렬(2차원 배열)
+2. 인접 리스트
+ 

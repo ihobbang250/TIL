@@ -180,7 +180,29 @@ Backtracking (Hard)
 
 *n개 노드 구성된 연결트리의 에지는 항상 n-1개
 
-*그래프 표현법 2가지
+*그래프 표현법 2가지 사이즈에 따라 결정한다.
 1. 인접 행렬(2차원 배열)
 2. 인접 리스트
- 
+
+* Traversal Method
+Tree : preorder, inorder, postorder
+graph : DFS, BFS
+Depth First Search(깊이 우선 탐색) : tree의 preorder방식과 비슷
+Breath First Search(너비 우선 탐색)
+
+###Example###
+def DFS(v) : #노트 v를 방문중
+	visited[v] = True # Visted list False initalize -> True
+	PreTime[v] = CurrTime # pre[v] v를 첫 방문한 시간
+	PostTime[v] = CurrTime # post[v] v에서 DFS가 완료된 시간
+	curr_time += 1
+	for each edge(v, w):
+		if visited[w] == False: # if w is unmarked
+			parent[w] = v
+			DFS(w)
+	PostTime[v] = CurrTime
+	CurrTime += 1
+##########
+
+*DFS 응용
+1. Connected component (연결 성분)

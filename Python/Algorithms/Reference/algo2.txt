@@ -205,4 +205,9 @@ def DFS(v) : #노트 v를 방문중
 ##########
 
 *DFS 응용
-1. Connected component (연결 성분)
+1. 사이클 검사
+2. Connected component (연결 성분) 개수
+3. Topological sort (위상 정렬)
+DAG(Directed Acyclic Graph) 
+
+Dikstra 까지 기말범위

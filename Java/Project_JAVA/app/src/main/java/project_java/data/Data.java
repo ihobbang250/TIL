@@ -1,7 +1,7 @@
 package project_java.data;
 
 public class Data {
-    // Country, Mean Time, Mean Cost, Hot_time_content, Hot_Cost_content
+    // Mean Time, Mean Cost, Hot_time_content, Hot_Cost_content
 
     private int meanTime;
     private int meanCost;

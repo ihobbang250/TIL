@@ -11,9 +11,17 @@ plugins {
     id 'application'
 }
 
+
+
 repositories {
     // Use Maven Central for resolving dependencies.
     mavenCentral()
+}
+
+compileJava.options.encoding = 'UTF-8'
+
+tasks.withType(JavaCompile){
+    options.encoding = 'UTF-8'
 }
 
 dependencies {
@@ -28,5 +36,6 @@ application {
     // Define the main class for the application.
     mainClass = 'project_java.App'
 }
+
 
 

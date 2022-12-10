@@ -39,7 +39,7 @@ public class DataDao {
             int increment = 0;
             while ((line = br.readLine()) != null) {
                 increment++;
-                if (increment < 3) continue;
+                if (increment < 2) continue;
  
                 vars = line.split(DELIMITER);
  

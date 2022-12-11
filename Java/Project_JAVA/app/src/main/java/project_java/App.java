@@ -48,45 +48,51 @@ class MoreCountry extends Country {
         int meanTime = 0;
         int meanCost = 0;
         int maxCount = 0;
-        
+        int idx = 0;
+
         String[] contents = {"영화", "예능", "패션", "드라마", "뷰티", "게임"};
-        int[] count = new int[5];
+        int[] count = {0, 0, 0, 0, 0, 0};
 
         while (list[i] != null) {
             sumCost += list[i].getMeanCost();
             sumTime += list[i].getMeanTime();
-
             for(int j = 0; j < contents.length; j++) {
                 if (list[i].getHotCostContent().equals(contents[j]) == true) {
                     count[j]++;
                 }
-                if (list[i].getHotTimeContent().equals(contents[j]) == true) {
+                else if (list[i].getHotTimeContent().equals(contents[j]) == true) {
                     count[j]++;
                 }
             }
             i++;
         }
 
-        for (int j: count)  {
+        for (int j: count) {
             maxCount = Math.max(j, maxCount);
+        }
+        for (int k: count) {
+            if (count[idx] == maxCount)
+                break;
+            idx++;
         }
 
         meanTime = sumTime / i;
         meanCost = sumCost / i;
         System.out.println(i+"개 국가의 평균 소비 시간: "+ meanTime);
         System.out.println(i+"개 국가의 평균 소비 비용: "+ meanCost);
-        System.out.println(i+"개 국가의 인기 컨텐츠: "+ contents[maxCount]);
+        System.out.println(i+"개 국가의 인기 컨텐츠: "+ contents[idx]);
     }
 }
-
 
 public class App {
     public static void main(String[] args) {
         DataDao dataDao = new DataDao();
         HashMap<String, Data> map = new HashMap<String, Data>();
         map = dataDao.getDataMap();
-        String[] inputList = new String[20];
-        Data[] countryList = new Data[30];
+        final int SIZE = map.size();
+        String[] inputList = new String[SIZE];
+        Data[] countryList = new Data[SIZE];
+        Data[] globalList = new Data[SIZE + 1];
 
         while (true) {
             int choice = 0;
@@ -121,27 +127,26 @@ public class App {
                             }
                             MoreCountry countries = new MoreCountry(countryList);
                             countries.combinationInfo();
-                            countryList = new Data[30];
+                            countryList = new Data[SIZE];
                             break;
                         } catch (Exception e) {
                             System.out.println("잘못된 국가 입력");
+                            countryList = new Data[SIZE];
                             break;
                         }
-
                     case 3:
                         int k = 0;
                         for (String i : map.keySet()) {
                             Data totalObj = map.get(i);
-                            countryList[k] = totalObj;
+                            globalList[k] = totalObj;
                             k++;
                         }
-                        MoreCountry all_countries = new MoreCountry(countryList);
+                        System.out.println("글로벌");
+                        MoreCountry all_countries = new MoreCountry(globalList);
                         all_countries.combinationInfo();
                         break;
-
                     case 4:
                         return;
-
                     default:
                         System.out.println("잘못된 번호입니다");
                         break;

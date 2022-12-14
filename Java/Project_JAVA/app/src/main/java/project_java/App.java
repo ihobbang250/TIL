@@ -171,7 +171,7 @@ public class App {
                         break;
                     case 4:
                         return;
-                    default: //메뉴 외의 번호 처리 default
+                    default: //메뉴 외의 번호 처리
                         System.out.println("잘못된 번호입니다");
                         break;
             }

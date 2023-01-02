@@ -32,6 +32,7 @@ public class App {
             int j = random.nextInt(10);
             list.add(j);
         }
+        
 
         int[] nlist = list.stream()
                         .mapToInt(Integer::intValue)

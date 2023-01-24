@@ -26,12 +26,13 @@ def find(wait, css_selector):
     return wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, css_selector)))
 
 search = find(wait, "fieldset input[type=text]")
-search.send_keys("갤럭시Z플립 케이스")
+# Solution 1 -> input Enter
+search.send_keys("갤럭시Z플립 케이스\n")
 time.sleep(3)
 
-button = find(wait, "button[type=button] path")
-button.click()
-
-time.sleep(3)
+# Solution 2 -> click
+# button = find(wait, "button[type=button] path")
+# button.click()
+# time.sleep(3)
 
 browser.close()

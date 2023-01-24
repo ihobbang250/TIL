@@ -12,5 +12,26 @@ options.add_argument("no-sandbox")
 
 browser = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
 browser.get("https://shopping.naver.com")
-WebDriverWait(browser, 10).until(EC.presence_of_element_located((By.CSS_SELECTOR, "fieldset input[type=text]")))
+
+# Depend on loading
+# Until Method -> return element
+wait = WebDriverWait(browser, 10)
+
+el1 = wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, "fieldset input[type=text]")))
+el2 = browser.find_element(By.CSS_SELECTOR, "fieldset input[type=text]")
+print(el1 == el2)
+
+# Until Method Develop
+def find(wait, css_selector):
+    return wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, css_selector)))
+
+search = find(wait, "fieldset input[type=text]")
+search.send_keys("갤럭시Z플립 케이스")
+time.sleep(3)
+
+button = find(wait, "button[type=button] path")
+button.click()
+
+time.sleep(3)
+
 browser.close()

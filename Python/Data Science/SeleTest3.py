@@ -77,7 +77,7 @@ else:
 
 options = finds_visible("div[class$=open] span.item_text")
 choose_one("CPU 종류를 선택", options)
-time.sleep(2)
+time.sleep(1)
 
 # cpu list
 products = finds_visible("div.scroll_box tr[class^=productList]")

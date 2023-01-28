@@ -34,17 +34,11 @@ def find_visibles(css): # Find all include selector
     return browser.find_elements(By.CSS_SELECTOR, css)
 
 
-def choose_one(text, options):
+def text_deco(text):
     print("--------------------------------")
     print(text)
     print("--------------------------------")
-    for i in range(len(options)):
-        if i == 10:
-            break
-        print(f"{i+1}. {options[i].text}")
-    choice = int(input("-> "))
-    options[choice-1].click()
-    return options[choice-1].text
+    
     
 category = {
     "CPU": "873",
@@ -61,6 +55,7 @@ category_css = {
     c: "dd.category_" + category[c] + " a" for c in category
 }
 
+user_cart = {}
 # cpu category
 cpu = find_visible(category_css["CPU"])
 cpu.click()
@@ -68,45 +63,68 @@ time.sleep(1)
 
 # cpu company
 options = find_visibles("input[name=makerCode]+span")
-maker = choose_one("CPU 제조사 번호를 선택", options)
+text_deco("CPU 제조사 번호를 선택")
+for idx, o in enumerate(options):
+    print(f"{idx+1}. {o.text}")
+choice = int(input("-> "))
+options[choice-1].click()
 time.sleep(1)
-
-# cpu version
-# options = find_visibles("div.search_option_item")
-# if maker == "인텔": 
-#     options[1].find_elements(By.CSS_SELECTOR, "button")[0].click()
-# else: #AMD
-#     options[2].find_elements(By.CSS_SELECTOR, "button")[0].click()
-
-# options = find_visibles("div[class$=open] span.item_text")
-# choose_one("CPU 종류를 선택", options)
 
 # cpu list
 products = find_visibles("div.scroll_box tr[class^=productList]")
 products_list = []
+text_deco("CPU를 선택")
 for idx, p in enumerate(products):
     name = p.find_element(By.CSS_SELECTOR, "p.subject a").text
     name = re.sub(r"\(.* ?\)", "", name)
-    socket = p.find_element(By.CSS_SELECTOR, "a.spec").text.split("/")[0]
+    spec = p.find_element(By.CSS_SELECTOR, "a.spec").text
+    socket = spec.split("/")[0]
+    if name.find("AMD") != -1:
+        core = int(re.findall(r'\d+', spec.split("/")[3])[0])
+        thread = int(re.findall(r'\d+', spec.split("/")[4])[0])
+        clock = float(re.findall(r'\d.\d', spec.split("/")[5].split(":")[1])[0])
+        performance = int(core * thread * clock)
     try:
         price = p.find_element(By.CSS_SELECTOR, "span.prod_price").text
+        price = int(re.sub(r'[^0-9]', "", price))
+    except:
+        continue
+    products_list.append([name, socket, price])
+    print(f"{idx+1}. {name}/ {socket} / {price} / {performance}")
+choice = int(input("-> "))
+selected_cpu = products_list[choice-1]
+selected_socket = selected_cpu[1]
+
+# mainboard category
+mainboard = find_visible(category_css["Mainboard"])
+mainboard.click()
+time.sleep(1)
+
+# mainboard filter socket
+options = find_visibles("div.search_option_item") # socket row
+options[2].find_elements(By.CSS_SELECTOR, "button")[0].click() # more button
+options = find_visibles("div[class$=open] span.item_text")
+for s in options:
+    if s.text.strip() == selected_socket:
+        s.click()
+        break
+time.sleep(1)
+
+# mainboard list
+products = find_visibles("div.scroll_box tr[class^=productList]")
+mainboards_list = []
+for idx, p in enumerate(products):
+    name = p.find_element(By.CSS_SELECTOR, "p.subject a").text
+    try:
+        price = p.find_element(By.CSS_SELECTOR, "span.prod_price").text
+        price = int(re.sub(r'[^0-9]', "", price))
     except:
         price = None
-    products_list.append([name, price])
-    print(f"{idx+1}. {name}/ {socket} / {price}")
-
-# # cpu socket
-# spec = find_visible("div.scroll_box div.spec_bg a").text
-# socket = spec.split("/")[0]
-
-
-# performance = spec.split("/")[-2].split(":")[1]
-# performance_number = int(re.sub(r'[^0-9]', "", performance))
-
-# print(socket, performance_number)
-# # mainboard = find_visible(category_css["Mainboard"])
-# mainboard.click()
-
-time.sleep(5)
+    mainboards_list.append([name, price])
+    if len(mainboards_list) > 5:
+        break
+print(mainboards_list)
+             
+# time.sleep(1)
 
 browser.quit()

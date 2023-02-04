@@ -175,31 +175,25 @@ selected_gpu = products_list[choice-1]
 ## Auto Select ##
 auto_select("Mainboard", selected_socket)
 auto_select_list("Mainboard")
+
 # mainboard list
 memory_socket = user_cart["Mainboard"][0][1]
-print(memory_socket)
 
-# # memory category
+# memory 
 auto_select("Memory", memory_socket)
 auto_select("Memory", "32GB")
 auto_select_list("Memory")
 
-# ssd category
+# ssd 
 auto_select("SSD", "M.2 (2280)")
-
-# ssd list Auto Select
 auto_select_list("SSD")
 
-# case category
+# case 
 auto_select("Case", "미들타워")
-
-# case list Auto Select
 auto_select_list("Case")
 
 # power category
 auto_select("Power", "600W~699W")
-
-# power list Auto Select
 auto_select_list("Power")
 
 print(user_cart)

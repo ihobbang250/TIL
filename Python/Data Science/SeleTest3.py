@@ -4,6 +4,7 @@ from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+import pandas as pd
 import time
 import re
 
@@ -79,7 +80,6 @@ def auto_select(part, selected):
                 time.sleep(1)
                 break
     
-
 
 def auto_select_list(part):
     products = find_visibles("div.scroll_box tr[class^=productList]")
@@ -196,6 +196,8 @@ auto_select_list("Case")
 auto_select("Power", "600W~699W")
 auto_select_list("Power")
 
-print(user_cart)
+df = pd.DataFrame([user_cart])
+df.head()
+#print(user_cart)
 
 browser.quit()

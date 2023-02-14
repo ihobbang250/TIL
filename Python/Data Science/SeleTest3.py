@@ -4,7 +4,6 @@ from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-import pandas as pd
 import time
 import re
 
@@ -181,7 +180,6 @@ memory_socket = user_cart["Mainboard"][0][1]
 
 # memory 
 auto_select("Memory", memory_socket)
-auto_select("Memory", "32GB")
 auto_select_list("Memory")
 
 # ssd 
@@ -196,8 +194,8 @@ auto_select_list("Case")
 auto_select("Power", "600W~699W")
 auto_select_list("Power")
 
-df = pd.DataFrame([user_cart])
-df.head()
+for key, item in user_cart.items():
+    print(key, ":", item)
 #print(user_cart)
 
 browser.quit()

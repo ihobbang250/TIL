@@ -9,10 +9,11 @@ import time
 import pyperclip
 import pyautogui
 import os
+from dotenv import load_dotenv
 
 #Setting User Data at System variables
+load_dotenv()
 DATA = {"id":os.getenv("NAVER_ID"), "pw":os.getenv("NAVER_PW")}
-
 options = webdriver.ChromeOptions()
 options.add_experimental_option('excludeSwitches', ['enable-logging']) # Usb Error ignore
 options.add_argument("no-sandbox") 
@@ -32,7 +33,7 @@ def auto_input(type):
     input_data = find(wait, f"input#{type}")
     input_data.click()
     pyperclip.copy(DATA[type])
-    pyautogui.hotkey('ctrl', 'v')
+    pyautogui.hotkey('command', 'v')
     if type == "id":
         time.sleep(1)
     else:

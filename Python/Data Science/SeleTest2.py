@@ -14,6 +14,7 @@ from dotenv import load_dotenv
 #Setting User Data at System variables
 load_dotenv()
 DATA = {"id":os.getenv("NAVER_ID"), "pw":os.getenv("NAVER_PW")}
+
 options = webdriver.ChromeOptions()
 options.add_experimental_option('excludeSwitches', ['enable-logging']) # Usb Error ignore
 options.add_argument("no-sandbox") 
@@ -28,12 +29,15 @@ wait = WebDriverWait(browser, 10)
 def find(wait, css_selector):
     return wait.until(EC.visibility_of_element_located((By.CSS_SELECTOR, css_selector)))
 
-# Auto input method
+# Auto input method-
 def auto_input(type):
     input_data = find(wait, f"input#{type}")
     input_data.click()
     pyperclip.copy(DATA[type])
-    pyautogui.hotkey('command', 'v')
+    # pyautogui.hotkey('ctrl', 'v') # window version
+    pyautogui.keyDown('command')
+    pyautogui.press('v')
+    pyautogui.keyUp('command')
     if type == "id":
         time.sleep(1)
     else:
@@ -50,27 +54,28 @@ auto_input("pw")
 # logout_button.click()
 # time.sleep(3)
 
-search = find(wait, "fieldset input[type=text]")
+search = find(wait, "form[name=search] input[type=text]")
+search.click()
 search.send_keys("갤럭시Z플립3 케이스")
 time.sleep(1)
 search.send_keys("\n")
 
 # Wait for loading
-# find(wait, "div[class^=basicList_info]")
-# # Scroll to bottom
-# for i in range(8):
-#     browser.execute_script("window.scrollBy(0, 10000)")
-#     time.sleep(1)
-# # Print item list
-# items = browser.find_elements(By.CSS_SELECTOR, "div[class^=basicList_title]")
-# for item in items:
-#     # Remove ADs
-#     try:
-#         item.find_element(By.CSS_SELECTOR, "a[data-testid=SEARCH_PRODUCT_AD]")
-#         continue
-#     except:
-#         pass
-#     print(item.text)
+find(wait, "div[class^=basicList_info]")
+# Scroll to bottom
+for i in range(8):
+    browser.execute_script("window.scrollBy(0, 10000)")
+    time.sleep(1)
+# Print item list
+items = browser.find_elements(By.CSS_SELECTOR, "div[class^=basicList_title]")
+for item in items:
+    # Remove ADs
+    try:
+        item.find_element(By.CSS_SELECTOR, "button[class^=ad_]")
+        continue
+    except:
+        pass
+    print(item.text)
 
 find(wait, "a[class^=basicList_link]").click()
 time.sleep(2)

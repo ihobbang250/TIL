@@ -11,7 +11,8 @@ import pyautogui
 import os
 from dotenv import load_dotenv
 
-#Setting User Data at System variables
+# Setting User Data at System variables
+# Create .env file in the same directory as this script
 load_dotenv()
 DATA = {"id":os.getenv("NAVER_ID"), "pw":os.getenv("NAVER_PW")}
 
@@ -29,13 +30,13 @@ wait = WebDriverWait(browser, 10)
 def find(wait, css_selector):
     return wait.until(EC.visibility_of_element_located((By.CSS_SELECTOR, css_selector)))
 
-# Auto input method-
+# Auto input method
 def auto_input(type):
     input_data = find(wait, f"input#{type}")
     input_data.click()
     pyperclip.copy(DATA[type])
     # pyautogui.hotkey('ctrl', 'v') # window version
-    pyautogui.keyDown('command')
+    pyautogui.keyDown('command') # mac version
     pyautogui.press('v')
     pyautogui.keyUp('command')
     if type == "id":

@@ -9,6 +9,7 @@ int main(int argc, char *argv[]) {
         perror(argv[0]);
         exit(1);
     }
+    
     if ((fpin = fopen(argv[1], "r")) == NULL) {
         perror(argv[1]);
         exit(2);
